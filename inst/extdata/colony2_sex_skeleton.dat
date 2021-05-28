@@ -1,0 +1,53 @@
+DATASETNAME
+OUTPUTNAME
+NUM_OFFSPRING       ! Number of offspring in the sample
+NUM_LOCI        ! Number of loci
+1234      ! Seed for random number generator
+0         ! 0/1=Not updating/updating allele frequency
+2         ! 2/1=Dioecious/Monoecious species
+0         ! 0/1=Inbreeding absent/present
+0         ! 0/1=Diploid species/HaploDiploid species
+0  0      ! 0/1=Polygamy/Monogamy for males & females
+0         ! 0/1 = Clone inference = No/Yes
+1         ! 0/1=Scale full sibship=No/Yes
+0 0 0     ! 0/1/2/3=No sibship prior/Weak sibship prior/Medium sibship prior/Strong sibship prior
+0         ! 0/1=Unknown/Known population allele frequency
+1         ! Number of runs
+2         ! 1/2/3/4 = Short/Medium/Long/VeryLong run
+1         ! 0/1=Monitor method by Iterate#/Time in second
+1         ! Monitor interval in Iterate# / in seconds
+1         ! 0/1=DOS/Windows version
+1         ! 0/1/2=Pair-Likelihood-Score(PLS)/Full-Likelihood(FL)/FL-PLS-combined(FPLS) method
+1         ! 0/1/2/3=Low/Medium/High/VeryHigh precision
+
+MARKER_ERROR
+
+OFFSPRING_GENOTYPES 
+
+1  1  
+NUM_CANDIDATES1 NUM_CANDIDATES2
+
+PATERNAL_GENOTYPES
+
+MATERNAL_GENOTYPES
+
+0 0
+
+0 0 
+
+0 
+
+0 
+
+0 
+
+0 
+
+0 
+
+0 
+
+0
+
+
+
