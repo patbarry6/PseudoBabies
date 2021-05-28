@@ -1,4 +1,4 @@
-# Introduction to PseudoBabies
+# Introduction to *PseudoBabies*
 Genetic data can be used to infer genealogical relationships (parentage and sibship) among individuals when pedigree information is lacking. The proportion of the population sampled and the genetic loci surveyed are two important aspects of designing experiments which aim to infer these relationships. *PseudoBabies* is a flexible forward-in-time simulation library to aid in the evaluation of genetic marker panels. We used genetic data from a population of sockeye salmon (*Oncorhynchus nerka*) in Southeast Alaska to demonstrate its application.
 
 # Getting started
@@ -48,7 +48,9 @@ As R has become embraced by many fields there has been an explosion of sites tha
 ## Input files
 Before you run a simulation you need information about the distribution of alleles at each locus. A pilot study could be conducted to survey the variability at a number of loci. The input file consists of a .csv file where indivdiuals occupy each line. If the .csv file is opened in a spredsheet program such as excel or LibreOffice Calc the first column is an individual identifier and the remaining columns are their multilocus genotype with each allele listed separately:
 
-![Input file](./images/inputfile.jpg){width=80%}
+<center>
+![Input file](./images/Inputfile.jpg)
+</center>
 
 Missing data is acceptable and should be coded as a 0 in the file. If there is information on the sex of individuals this can be incorporated into the analysis and should be listed in the last column of the input file. 
 
@@ -69,14 +71,12 @@ Simulations are accomplished with one of two functions: `Sim.SG.Data()` and `Sim
 
 Of our 105 genetic markers, three multiplexes were made for the uSat markers. We attempted to group uSat loci by information content while keeping PCR reagent concentrations similar. For SNP genotyping a Fluidigm system was used, which accommodates arrays that run 96, 48, or 24 loci. SNPs were organized by their minor allele frequency (MAF) and the SNPs with the highest MAF were retained on each of the three array sizes. We ran simulations that included a combination of 12, 9, 5, or 0 microsatellites and 93, 48, 24, or 0 SNPs. The loci to use in simulations were specified in the `Markerfile` a .csv that lists which markers should be included in the analysis:
 
-![Marker file](./images/markerfile.jpg){width=50%}
+![Marker file](./images/markerfile.jpg)
 
 Sockeye salmon in Auke Creek can mature at ages 3 to 7. Scale samples were collected from a subset of returning fish so that we could estimate the distribuiton of ages at maturity. This information is stored in the age of maturity file (`AOMfile`; see [Additional Auxillary Files](#adfiles)) 
 
 <center>
-
-![AoMdiagram](./images/AoMDiagram.jpg){width=40%}
-
+![AoMdiagram](./images/AoMDiagram.jpg)
 </center>
 
 For any return year, individuals could be progeny from matings that occured in four years. When sockeye return to the system to spawn individuals are sexed by their secondary sexual characteristics (size of kype and vent), but early in the return when fish are not fully sexually mature mistakes are not uncommon. As for the mating structure, it is not uncommon for sockeye females to mate with multiple males (polygyny), but the extent to which males mate with females (polyandry) is unknown. We can conduct our simulation with the command: 
@@ -155,32 +155,36 @@ ggplot(data=GDres[order(as.numeric(GDres[,5])),],
   theme_classic()+
   geom_hline(yintercept=0.05,lty=2,color="red")
 ```
-![Homogeneity](./images/HomogeneityPvals-1.png){width=40%}
+![Homogeneity](./images/HomogeneityPvals-1.png)
 
 Not too bad, there are a few values that fall below our alpha value of 0.05. You may want to correct for multiple testing. You can also sort the dataframe by the probability value and look for any simulations that are significantly different at multiple loci and consider trashing that simulation.
 
 ```r
 head(GDres[order(GDres$Pvalue),],10)
 ```
-![](./images/Loci.jpg){width=80%}
 
+<center>
+![](./images/Loci.jpg)
+</center>
 
 Well shoot, the locus Omy77 has a probability of 0 for population 6164. How divergent are the allele frequencies? To figure this out we can pull the allele frequency distribution from the output file:
 
-```{r GPlow, cache=T}
+```r
 GPlow<-GDres[order(GDres$Pvalue),][1,1]
 LocusIndex<-grep(paste("Locus: ",GPlow,sep=""),GenicDiffRes)
 GenicDiffRes[(LocusIndex):(LocusIndex+nsims+8)]
 
 ```
 
-![](./images/Omy77.jpg){width=80%}
+<center>
+![](./images/Omy77.jpg)
+</center>
 
 So it appears that allele 100 at this locus has become much more frequent in this population and that is what is cuasing the heterogeneity between the founding populaiton and this simulation. One solution to this issue is to simulate 10% more simulations than desired and then trash the ones that are most dissimilar to your data. 
 
 A further issue is that we need to specify both the number of breeding pairs per year and a distribution to generate the number of offspring that those breeders produce. If we choose unrealistic values for these parameters we can drastically increase or decrease the size of the population. To make sure that our population size hovers around a reasonable value for the population of interest we produce a plot of the total population size at each iteration of the simulation, `PopulationSize_Simulations.jpg`: 
 
-![Population size over years of the simulation.](./images/PopulationSize_Simulations.jpg){width=80%}
+![Population size over years of the simulation.](./images/PopulationSize_Simulations.jpg)
 
 You can see from this graph that the simulated populations end up being within about 100 individuals of the population size we started with. If you start with a founders file that has fewer individuals than the total population of interest you should choose `NB` and a distribution of offspring that will give you a reasonable population size for the system you are studying.  
 
@@ -249,7 +253,7 @@ Many of the arguments passed to this function should look familiar. In addition 
 The function will return a dataframe with a summary of the analyses. 
 
 ### *FRANz* results - `SumFRANz()`
-The program FRANz produces a few files. The most important file is `parentage.csv`. This lists the most likely parents of each individual. The most important information in this file according to [@Riester2009] is the LOD and the posterior probability columns. The arguments to this command are very similar to those to `SumColony()`:
+The program FRANz produces a few files. The most important file is `parentage.csv`. This lists the most likely parents of each individual. The most important information in this file according to (Riester et al. 2009) is the LOD and the posterior probability columns. The arguments to this command are very similar to those to `SumColony()`:
 
 ```r
 SumFRANz(nSim=10, 
@@ -271,12 +275,16 @@ The function will return a dataframe with a summary of the analyses.
 ### Age of Maturity `AOMfile`
 The age of maturity file is a .csv file that outlines the proportion of the population that reproduces at a given age. The file has two columns; age and proportion. Although obvious, the proportion should sum to 1. There is no limit to the ages; however, ages should range from 1 to the maximum age for reproduction.  
 
-![Age of Maturity file](./images/AoMfile.jpg){width=40%}
+<center>
+![Age of Maturity file](./images/AoMfile.jpg)
+</center>
 
 ### Genotyping Error `Loci_error.csv`
 If `Geno_Error=TRUE` then the .csv file `Loci_error.csv` needs to give genotyping error rates for all of the loci in the founders file. The error values can range from 0-1, though we hope that they aren't much greater than 0.02. Each locus can have its own genotyping error rate. You may want to give microsatellites a higher error rate than say SNPs. Multiple columns can exists and will be used for different `ErrorVals`. Because we allow different error rates across loci when plotting results we allow the user to define the label that is applied to the graphs `ErrorLab`. 
 
-![Loci_Error.csv](./images/LociError.jpg){width=40%}
+<center>
+![Loci_Error.csv](./images/LociError.jpg)
+</center>
 
 # Considerations 
 Depending on how large a population we are working with it may be computationally taxing to analyze your dataset with multiple panels and multiple levels of genotyping error and missing data all at once. The program *COLONY* can run for a very long time, so we advise doing an iterative analysis to minimize the number of datasets that you will analyze.
