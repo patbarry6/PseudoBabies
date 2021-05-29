@@ -3,11 +3,11 @@ Genetic data can be used to infer genealogical relationships (parentage and sibs
 
 # Getting started
 ## Installing the package
-*PseudoBabies* was developed on R version 3.4.1. So first make sure you have a recent version of R. The easiest way to check for the version installed is with the command: 
+*PseudoBabies* was developed on R version 3.5.0. So first make sure you have a recent version of R. The easiest way to check for the version installed is with the command: 
 ```r
 R.version.string
 ```
-If you see anything that is $>=$ R version 3.4.1 you should be good to go. 
+If you see anything that is R version 3.5.0 you should be good to go. 
 
 Most packages used in R are hosted on the comprehensive R archive network (CRAN) and you can installed them by with the `install.packages()` command. I haven't gone to the trouble to format the package for CRAN, nor do I think that the number of people that may want to use the package will require this, but only time will tell. For the time being, *PseudoBabies* will be hosted on github:
 
@@ -33,7 +33,7 @@ this is equivalent to the `help()` function. This only works if you know the fun
 ### Help on the Internet
 As R has become embraced by many fields there has been an explosion of sites that are devoted to troubleshooting issues that people have with different packages. The websites search.r-project.org and Rseek.org are good resources that specalize in R. Similarly, there are mailing lists and forums that people can email or post their issues in the hopes that someone will respond with constructive solutions. The [R-help](https://stat.ethz.ch/mailman/listinfo/r-help) is the main R mailing list and is quite active. Forums, such as [Stack Overflow](http://stackoverflow.com/questions/tagged/r), are also popular ways of getting solutions to issues encountered. Much of the time solutions to your problem have already been posted, so doing a little bit of searching before posting is highly recommended.
 
-### Help from the developer {#help}
+### Help from the developer
 *PseudoBabies* is hosted on github which makes it very easy for researchers using the program to fork the repository and help develop the code or post questions / issues. If you do not have a github account you can always email the developer directly pdbarry@gmail.com. It is likely that direct communication with the developer will be the fastest way to resolve issues. 
 
 ## Installing *COLONY* and *FRANz*
@@ -48,9 +48,7 @@ As R has become embraced by many fields there has been an explosion of sites tha
 ## Input files
 Before you run a simulation you need information about the distribution of alleles at each locus. A pilot study could be conducted to survey the variability at a number of loci. The input file consists of a .csv file where indivdiuals occupy each line. If the .csv file is opened in a spredsheet program such as excel or LibreOffice Calc the first column is an individual identifier and the remaining columns are their multilocus genotype with each allele listed separately:
 
-<center>
 ![Input file](./images/Inputfile.jpg)
-</center>
 
 Missing data is acceptable and should be coded as a 0 in the file. If there is information on the sex of individuals this can be incorporated into the analysis and should be listed in the last column of the input file. 
 
@@ -75,9 +73,9 @@ Of our 105 genetic markers, three multiplexes were made for the uSat markers. We
 
 Sockeye salmon in Auke Creek can mature at ages 3 to 7. Scale samples were collected from a subset of returning fish so that we could estimate the distribuiton of ages at maturity. This information is stored in the age of maturity file (`AOMfile`; see [Additional Auxillary Files](#adfiles)) 
 
-<center>
+
 ![AoMdiagram](./images/AoMDiagram.jpg)
-</center>
+
 
 For any return year, individuals could be progeny from matings that occured in four years. When sockeye return to the system to spawn individuals are sexed by their secondary sexual characteristics (size of kype and vent), but early in the return when fish are not fully sexually mature mistakes are not uncommon. As for the mating structure, it is not uncommon for sockeye females to mate with multiple males (polygyny), but the extent to which males mate with females (polyandry) is unknown. We can conduct our simulation with the command: 
 
@@ -163,9 +161,7 @@ Not too bad, there are a few values that fall below our alpha value of 0.05. You
 head(GDres[order(GDres$Pvalue),],10)
 ```
 
-<center>
 ![](./images/Loci.jpg)
-</center>
 
 Well shoot, the locus Omy77 has a probability of 0 for population 6164. How divergent are the allele frequencies? To figure this out we can pull the allele frequency distribution from the output file:
 
@@ -176,9 +172,7 @@ GenicDiffRes[(LocusIndex):(LocusIndex+nsims+8)]
 
 ```
 
-<center>
 ![](./images/Omy77.jpg)
-</center>
 
 So it appears that allele 100 at this locus has become much more frequent in this population and that is what is cuasing the heterogeneity between the founding populaiton and this simulation. One solution to this issue is to simulate 10% more simulations than desired and then trash the ones that are most dissimilar to your data. 
 
@@ -275,16 +269,12 @@ The function will return a dataframe with a summary of the analyses.
 ### Age of Maturity `AOMfile`
 The age of maturity file is a .csv file that outlines the proportion of the population that reproduces at a given age. The file has two columns; age and proportion. Although obvious, the proportion should sum to 1. There is no limit to the ages; however, ages should range from 1 to the maximum age for reproduction.  
 
-<center>
 ![Age of Maturity file](./images/AoMfile.jpg)
-</center>
 
 ### Genotyping Error `Loci_error.csv`
 If `Geno_Error=TRUE` then the .csv file `Loci_error.csv` needs to give genotyping error rates for all of the loci in the founders file. The error values can range from 0-1, though we hope that they aren't much greater than 0.02. Each locus can have its own genotyping error rate. You may want to give microsatellites a higher error rate than say SNPs. Multiple columns can exists and will be used for different `ErrorVals`. Because we allow different error rates across loci when plotting results we allow the user to define the label that is applied to the graphs `ErrorLab`. 
 
-<center>
 ![Loci_Error.csv](./images/LociError.jpg)
-</center>
 
 # Considerations 
 Depending on how large a population we are working with it may be computationally taxing to analyze your dataset with multiple panels and multiple levels of genotyping error and missing data all at once. The program *COLONY* can run for a very long time, so we advise doing an iterative analysis to minimize the number of datasets that you will analyze.
