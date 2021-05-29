@@ -48,7 +48,7 @@ As R has become embraced by many fields there has been an explosion of sites tha
 ## Input files
 Before you run a simulation you need information about the distribution of alleles at each locus. A pilot study could be conducted to survey the variability at a number of loci. The input file consists of a .csv file where indivdiuals occupy each line. If the .csv file is opened in a spredsheet program such as excel or LibreOffice Calc the first column is an individual identifier and the remaining columns are their multilocus genotype with each allele listed separately:
 
-![Input file](./images/Inputfile.jpg)
+![Input file](./images/inputfile.jpg)
 
 Missing data is acceptable and should be coded as a 0 in the file. If there is information on the sex of individuals this can be incorporated into the analysis and should be listed in the last column of the input file. 
 
