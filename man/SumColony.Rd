@@ -4,9 +4,15 @@
 \alias{SumColony}
 \title{Summarize the results from Colony2 analysis for parentage on muliple PseudoBabies simulations}
 \usage{
-SumColony(nSim, Miss_data = T, MissingVec = c(0, 2.5),
-  Geno_Error = T, ErrorVals = 1, Cutoff = 0.8,
-  Markerfile = "MarkerPanels.csv")
+SumColony(
+  nSim,
+  Miss_data = T,
+  MissingVec = c(0, 2.5),
+  Geno_Error = T,
+  ErrorVals = 1,
+  Cutoff = 0.8,
+  Markerfile = "MarkerPanels.csv"
+)
 }
 \arguments{
 \item{Miss_data}{Would you like to add missing data to the simulations? Defaults to FALSE}

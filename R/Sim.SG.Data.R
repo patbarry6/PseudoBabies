@@ -275,11 +275,11 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                 if(mark[1]>0&mark[2]==0){DatExp<-cbind(Input4[,1:2],Input4[,3:as.numeric(mark[1]*2+2)])}  
                 
                 if('FRANz'%in% Programs){
-                  write.table(DatExp, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
+                  write.table(DatExp, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
                   # Convert to FRANz file using Perl Script
                   if(Sys.info()[['sysname']]=="Windows"){  
-                    shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
-                  }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
+                    shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
+                  }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
                   }
                 }# if FRANz
                 
@@ -301,7 +301,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                   Col_Markers[4,]<-0#error rate
                   Col_Markers2<-paste(sapply(1:nrow(Col_Markers),function(x) paste(Col_Markers[x,],collapse=", ")),collapse=EOLcharacter)
                   
-                  AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec,"_SimNum",s,sep='')
+                  AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec[e],"_MissDat",MissingVec[M],"_SimNum",s,sep='')
                   
                   readLines(system.file("extdata/colony2_skeleton.dat",package="PseudoBabies",lib.loc=NULL,mustWork=TRUE)) %>%
                     gsub(pattern="NUM_OFFSPRING",replacement=Num_Offspring,x=.)%>%
@@ -314,7 +314,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                     gsub(pattern="MARKER_ERROR",replacement=Col_Markers2,x=.)%>%
                     gsub(pattern="DATASETNAME",replacement=AnalysisName,x=.)%>%
                     gsub(pattern="OUTPUTNAME",replacement=AnalysisName,x=.)%>%
-                    writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
+                    writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/ColonyInput.dat",sep=""))
                 }
               }#over z markers
             } else if (SexInf==TRUE){
@@ -327,11 +327,11 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                 colnames(DatExp)[ncol(DatExp)]<-"Sex"
                 if('FRANz'%in% Programs){
                   DatExp2<-DatExp[,c(1,2,ncol(DatExp),seq(3,ncol(DatExp)-1,1))]
-                  write.table(DatExp2, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
+                  write.table(DatExp2, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
                   # Convert to FRANz file using Perl Script
                   if(Sys.info()[['sysname']]=="Windows"){  
-                    shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
-                  }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
+                    shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
+                  }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
                   }
                 }# if FRANz
                 
@@ -361,7 +361,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                   Col_Markers[4,]<-0#error rate
                   Col_Markers2<-paste(sapply(1:nrow(Col_Markers),function(x) paste(Col_Markers[x,],collapse=", ")),collapse=EOLcharacter)
                   
-                  AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec,"_SimNum",s,sep='')
+                  AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec[e],"_MissDat",MissingVec[M],"_SimNum",s,sep='')
                   
                   readLines(system.file("extdata/colony2_sex_skeleton.dat",package="PseudoBabies",lib.loc=NULL,mustWork=TRUE))%>%
                     gsub(pattern="NUM_OFFSPRING",replacement=Num_Offspring,x=.)%>%
@@ -374,7 +374,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                     gsub(pattern="MARKER_ERROR",replacement=Col_Markers2,x=.)%>%
                     gsub(pattern="DATASETNAME",replacement=AnalysisName,x=.)%>%
                     gsub(pattern="OUTPUTNAME",replacement=AnalysisName,x=.)%>%
-                    writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
+                    writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec[M],"/SimNum",s,"/ColonyInput.dat",sep=""))
                 }#if Colony is in program files
               }#over z markers  
             } #if SexInf==T
@@ -391,11 +391,11 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
               if(mark[1]>0&mark[2]==0){DatExp<-cbind(Input4[,1:2],Input4[,3:as.numeric(mark[1]*2+2)])}  
               
               if('FRANz'%in% Programs){
-                write.table(DatExp, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
+                write.table(DatExp, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
                 # Convert to FRANz file using Perl Script
                 if(Sys.info()[['sysname']]=="Windows"){  
-                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
-                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
+                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
+                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
                 }
               }# if FRANz
               
@@ -417,7 +417,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                 Col_Markers[4,]<-0#error rate
                 Col_Markers2<-paste(sapply(1:nrow(Col_Markers),function(x) paste(Col_Markers[x,],collapse=", ")),collapse=EOLcharacter)
                 
-                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec,"_SimNum",s,sep='')
+                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec[e],"_MissDat",MissingVec,"_SimNum",s,sep='')
                 
                 readLines(system.file("extdata/colony2_skeleton.dat",package="PseudoBabies",lib.loc=NULL,mustWork=TRUE)) %>%
                   gsub(pattern="NUM_OFFSPRING",replacement=Num_Offspring,x=.)%>%
@@ -430,7 +430,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                   gsub(pattern="MARKER_ERROR",replacement=Col_Markers2,x=.)%>%
                   gsub(pattern="DATASETNAME",replacement=AnalysisName,x=.)%>%
                   gsub(pattern="OUTPUTNAME",replacement=AnalysisName,x=.)%>%
-                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
+                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
               }
             }#over z markers
           }else if (SexInf==TRUE){
@@ -443,11 +443,11 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
               colnames(DatExp)[ncol(DatExp)]<-"Sex"
               if('FRANz'%in% Programs){
                 DatExp2<-DatExp[,c(1,2,ncol(DatExp),seq(3,ncol(DatExp)-1,1))]
-                write.table(DatExp2, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
+                write.table(DatExp2, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
                 # Convert to FRANz file using Perl Script
                 if(Sys.info()[['sysname']]=="Windows"){  
-                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
-                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
+                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
+                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
                 }
               }# if FRANz
               
@@ -477,7 +477,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                 Col_Markers[4,]<-0#error rate
                 Col_Markers2<-paste(sapply(1:nrow(Col_Markers),function(x) paste(Col_Markers[x,],collapse=", ")),collapse=EOLcharacter)
                 
-                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec,"_SimNum",s,sep='')
+                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec[e],"_MissDat",MissingVec,"_SimNum",s,sep='')
                 
                 readLines(system.file("extdata/colony2_sex_skeleton.dat",package="PseudoBabies",lib.loc=NULL,mustWork=TRUE)) %>%
                   gsub(pattern="NUM_OFFSPRING",replacement=Num_Offspring,x=.)%>%
@@ -490,7 +490,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                   gsub(pattern="MARKER_ERROR",replacement=Col_Markers2,x=.)%>%
                   gsub(pattern="DATASETNAME",replacement=AnalysisName,x=.)%>%
                   gsub(pattern="OUTPUTNAME",replacement=AnalysisName,x=.)%>%
-                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
+                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec[e],"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
               }
             }#over z markers
           } else {
@@ -525,11 +525,11 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
               if(mark[1]>0&mark[2]==0){DatExp<-cbind(Input2[,1:2],Input2[,3:as.numeric(mark[1]*2+2)])}  
               
               if('FRANz'%in% Programs){
-                write.table(DatExp, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
+                write.table(DatExp, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
                 # Convert to FRANz file using Perl Script
                 if(Sys.info()[['sysname']]=="Windows"){  
-                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
-                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
+                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
+                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 2 --birth_col 1 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
                 }
               }# if FRANz
               
@@ -551,7 +551,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                 Col_Markers[4,]<-0#error rate
                 Col_Markers2<-paste(sapply(1:nrow(Col_Markers),function(x) paste(Col_Markers[x,],collapse=", ")),collapse=EOLcharacter)
                 
-                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec,"_SimNum",s,sep='')
+                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec[M],"_SimNum",s,sep='')
                 
                 readLines(system.file("extdata/colony2_skeleton.dat",package="PseudoBabies",lib.loc=NULL,mustWork=TRUE)) %>%
                   gsub(pattern="NUM_OFFSPRING",replacement=Num_Offspring,x=.)%>%
@@ -564,7 +564,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                   gsub(pattern="MARKER_ERROR",replacement=Col_Markers2,x=.)%>%
                   gsub(pattern="DATASETNAME",replacement=AnalysisName,x=.)%>%
                   gsub(pattern="OUTPUTNAME",replacement=AnalysisName,x=.)%>%
-                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
+                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/ColonyInput.dat",sep=""))
               }
             }#over z markers
           }else if (SexInf==TRUE){
@@ -577,11 +577,11 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
               colnames(DatExp)[ncol(DatExp)]<-"Sex"
               if('FRANz'%in% Programs){
                 DatExp2<-DatExp[,c(1,2,ncol(DatExp),seq(3,ncol(DatExp)-1,1))]
-                write.table(DatExp2, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
+                write.table(DatExp2, file = paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInput","Sim", s, ".csv",sep=""),sep = ",",row.names = FALSE, quote = FALSE)
                 # Convert to FRANz file using Perl Script
                 if(Sys.info()[['sysname']]=="Windows"){  
-                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
-                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/FRANzSim",s,".dat",sep=""))) 
+                  shell(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
+                }else{system(paste("perl ",perl.dir, " --in", paste (wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/","FRANzInputSim",s,".csv",sep=""), "--data_col 3 --birth_col 1 --sex_col 2 --has_header --missing_allele 0", paste(">",wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/FRANzSim",s,".dat",sep="")))
                 }
               }# if FRANz
               
@@ -611,7 +611,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                 Col_Markers[4,]<-0#error rate
                 Col_Markers2<-paste(sapply(1:nrow(Col_Markers),function(x) paste(Col_Markers[x,],collapse=", ")),collapse=EOLcharacter)
                 
-                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec,"_SimNum",s,sep='')
+                AnalysisName<-paste('Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"_Error",ErrorVec,"_MissDat",MissingVec[M],"_SimNum",s,sep='')
                 
                 readLines(system.file("extdata/colony2_sex_skeleton.dat",package="PseudoBabies",lib.loc=NULL,mustWork=TRUE))%>%
                   gsub(pattern="NUM_OFFSPRING",replacement=Num_Offspring,x=.)%>%
@@ -624,7 +624,7 @@ Sim.SG.Data<-function(Founders='FoundersCompleteGenotypes.csv', Markerfile='Mark
                   gsub(pattern="MARKER_ERROR",replacement=Col_Markers2,x=.)%>%
                   gsub(pattern="DATASETNAME",replacement=AnalysisName,x=.)%>%
                   gsub(pattern="OUTPUTNAME",replacement=AnalysisName,x=.)%>%
-                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec,"/SimNum",s,"/ColonyInput.dat",sep=""))
+                  writeLines(text=.,con=paste(wd,"/",'Panel_uSats',markers[z,2],'_SNPs',markers[z,3],"/Error_",ErrorVec,"/MissDat_",MissingVec[M],"/SimNum",s,"/ColonyInput.dat",sep=""))
               }
             }#over z markers
           } else {

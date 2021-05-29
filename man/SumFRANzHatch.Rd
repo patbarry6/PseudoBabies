@@ -4,10 +4,19 @@
 \alias{SumFRANzHatch}
 \title{Summarize the results from FRANz analysis for parentage on muliple PseudoBabies simulations}
 \usage{
-SumFRANzHatch(nSim, Miss_data = FALSE, MissingVec = c(0, 2.5),
-  Geno_Error = FALSE, ErrorVals, Cutoff, Markerfile, SavePlot = FALSE,
-  FacetWrapBy = c("Panel", "Error", "MissDat"), ErrorLab,
-  LODplots = FALSE)
+SumFRANzHatch(
+  nSim,
+  Miss_data = FALSE,
+  MissingVec = c(0, 2.5),
+  Geno_Error = FALSE,
+  ErrorVals,
+  Cutoff,
+  Markerfile,
+  SavePlot = FALSE,
+  FacetWrapBy = c("Panel", "Error", "MissDat"),
+  ErrorLab,
+  LODplots = FALSE
+)
 }
 \arguments{
 \item{Miss_data}{Would you like to add missing data to the simulations? Defaults to FALSE}

@@ -4,9 +4,16 @@
 \alias{Resume.Rn.Colony}
 \title{Resume running Colony2 through R for parentage on muliple PseudoBabies simulations}
 \usage{
-Resume.Rn.Colony(ColonyDir, nSim, Miss_data = FALSE, MissingVec = c(0,
-  2.5), Geno_Error = FALSE, ErrorVals, Markerfile,
-  ShowProgress = FALSE)
+Resume.Rn.Colony(
+  ColonyDir,
+  nSim,
+  Miss_data = FALSE,
+  MissingVec = c(0, 2.5),
+  Geno_Error = FALSE,
+  ErrorVals,
+  Markerfile,
+  ShowProgress = FALSE
+)
 }
 \arguments{
 \item{ColonyDir}{Directory where the Colony program can be called from}

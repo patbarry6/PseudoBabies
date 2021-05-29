@@ -4,9 +4,19 @@
 \alias{Resume.Rn.FRANz}
 \title{Resume running FRANz through R for parentage on muliple PseudoBabies simulations}
 \usage{
-Resume.Rn.FRANz(nSim, Miss_data = T, MissingVec, Geno_Error = T,
-  ErrorVals, Markerfile = "MarkerPanels.csv", ShowProgress = FALSE,
-  MarkerNum.Res, ErrorVec.Res, MissingNum.Res, Sim.Res)
+Resume.Rn.FRANz(
+  nSim,
+  Miss_data = T,
+  MissingVec,
+  Geno_Error = T,
+  ErrorVals,
+  Markerfile = "MarkerPanels.csv",
+  ShowProgress = FALSE,
+  MarkerNum.Res,
+  ErrorVec.Res,
+  MissingNum.Res,
+  Sim.Res
+)
 }
 \arguments{
 \item{Miss_data}{Would you like to add missing data to the simulations? Defaults to FALSE}

@@ -4,14 +4,37 @@
 \alias{Sim.MG.Data}
 \title{Simulate genotypes over many generations}
 \usage{
-Sim.MG.Data(AnalysisName, Founders, AOMfile,
-  Markerfile = "MarkerPanels.csv", NumuSats, NumSNPs, NB = 600,
-  NumYears = 19, StartYear = format(Sys.Date(), "\%Y"), nSim = 10,
-  Geno_Error = FALSE, Miss_data = FALSE, MissingVec = c(0, 2.5),
-  ErrorVals = 1, Programs = c("FRANz", "Colony"), SexInf = FALSE,
-  perl.dir, GPHomogeneity = FALSE, OffspringDist = "Poisson",
-  SexInfo = FALSE, MatingStr = "Polygamy", lambda = 2, Umin, Umax,
-  nBprob, nBsize, ztnbsize, ztnbprob, ...)
+Sim.MG.Data(
+  AnalysisName,
+  Founders,
+  AOMfile,
+  Markerfile = "MarkerPanels.csv",
+  NumuSats,
+  NumSNPs,
+  NB = 600,
+  NumYears = 19,
+  StartYear = format(Sys.Date(), "\%Y"),
+  nSim = 10,
+  Geno_Error = FALSE,
+  Miss_data = FALSE,
+  MissingVec = c(0, 2.5),
+  ErrorVals = 1,
+  Programs = c("FRANz", "Colony"),
+  SexInf = FALSE,
+  perl.dir,
+  GPHomogeneity = FALSE,
+  OffspringDist = "Poisson",
+  SexInfo = FALSE,
+  MatingStr = "Polygamy",
+  lambda = 2,
+  Umin,
+  Umax,
+  nBprob,
+  nBsize,
+  ztnbsize,
+  ztnbprob,
+  ...
+)
 }
 \arguments{
 \item{AnalysisName}{name of the analysis}

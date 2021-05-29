@@ -4,8 +4,15 @@
 \alias{SumFRANz}
 \title{Summarize the results from FRANz analysis for parentage on muliple PseudoBabies simulations}
 \usage{
-SumFRANz(nSim, Miss_data = FALSE, MissingVec = c(0, 2.5),
-  Geno_Error = FALSE, ErrorVals, Cutoff, Markerfile)
+SumFRANz(
+  nSim,
+  Miss_data = FALSE,
+  MissingVec = c(0, 2.5),
+  Geno_Error = FALSE,
+  ErrorVals,
+  Cutoff,
+  Markerfile
+)
 }
 \arguments{
 \item{Miss_data}{Would you like to add missing data to the simulations? Defaults to FALSE}

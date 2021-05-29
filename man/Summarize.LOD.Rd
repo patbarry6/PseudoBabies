@@ -4,10 +4,20 @@
 \alias{Summarize.LOD}
 \title{Summarize the LOD scores from parentage inference with FRANz}
 \usage{
-Summarize.LOD(AnalysisName, nSim, Miss_data = FALSE, MissingVec = c(0,
-  2.5), Geno_Error = FALSE, ErrorVec = c(0, 2), SavePlot = FALSE,
-  PlotName = "LODsum", Plots = c("LCA", "PLCA", "PLCA", "PLICA"),
-  ErrorLab, Markerfile, ...)
+Summarize.LOD(
+  AnalysisName,
+  nSim,
+  Miss_data = FALSE,
+  MissingVec = c(0, 2.5),
+  Geno_Error = FALSE,
+  ErrorVec = c(0, 2),
+  SavePlot = FALSE,
+  PlotName = "LODsum",
+  Plots = c("LCA", "PLCA", "PLCA", "PLICA"),
+  ErrorLab,
+  Markerfile,
+  ...
+)
 }
 \arguments{
 \item{AnalysisName}{Name of the Analysis}

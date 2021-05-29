@@ -4,14 +4,33 @@
 \alias{Sim.SG.Data}
 \title{Simulate genotypes over a single year}
 \usage{
-Sim.SG.Data(Founders = "FoundersCompleteGenotypes.csv",
-  Markerfile = "MarkerPanels.csv", NumSNPs = 93, NumuSats = 12,
-  NB = 650, StartYear = as.numeric(format(Sys.Date(), "\%Y")),
-  nSim = 10, Geno_Error = F, ErrorVals, Miss_data = F, MissingVec,
-  Programs = c("FRANz", "Colony"), SexInf, perl.dir,
-  GPHomogeneity = FALSE, OffspringDist = "Poisson", SexInfo = F,
-  lambda, Umin = 0, Umax = 1, nBprob, nBsize, ztnbprob, ztnbsize,
-  MatingStr = "Polygyny")
+Sim.SG.Data(
+  Founders = "FoundersCompleteGenotypes.csv",
+  Markerfile = "MarkerPanels.csv",
+  NumSNPs = 93,
+  NumuSats = 12,
+  NB = 650,
+  StartYear = as.numeric(format(Sys.Date(), "\%Y")),
+  nSim = 10,
+  Geno_Error = F,
+  ErrorVals,
+  Miss_data = F,
+  MissingVec,
+  Programs = c("FRANz", "Colony"),
+  SexInf,
+  perl.dir,
+  GPHomogeneity = FALSE,
+  OffspringDist = "Poisson",
+  SexInfo = F,
+  lambda,
+  Umin = 0,
+  Umax = 1,
+  nBprob,
+  nBsize,
+  ztnbprob,
+  ztnbsize,
+  MatingStr = "Polygyny"
+)
 }
 \arguments{
 \item{Founders}{.csv file containing the genotypes to use for initiating the simulation. Use function CompleteGenotypes to remove missing data before performing simulations.}
