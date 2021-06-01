@@ -16,11 +16,15 @@ https://github.com/patbarry6/PseudoBabies
 You can install it by using the package *devtools* with the command:
 ```r
 library("devtools")
-install_github("patbarry6/PseudoBabies")
+install_github("patbarry6/PseudoBabies", build_vignettes = TRUE)
 library("PseudoBabies")
 ```
-*PseudoBabies* has gone through a few rounds of updates and has been tested on Linux, MacOS X and Windows operating systems, but like all programs it may have a few issues to work out. If you download the library and run into issues there are a multitude of ways to resolve them. 
 
+The vignette HowToPseudoBabies has a brief example on how you can simulate 
+and analyze data with the program. The vignette IntroPseudoBabies demonstrates 
+the analysis outlined in this readme.
+
+*PseudoBabies* has gone through a few rounds of updates and has been tested on Linux, MacOS X and Windows operating systems, but it may have a few issues to work out. If you download the library and run into issues there are a multitude of ways to resolve them. 
 
 ## Getting help
 ### Help from within R
@@ -283,8 +287,9 @@ Depending on how large a population we are working with it may be computationall
 You can speed up the processing time of *COLONY* by running multiple instances of it. With a UNIX operating system you can do that easily by running a bash script that iterates over multiple `MarkerPanel` files. Say you want to run 4 different marker panels for 3 levels of error. If your computer has 8 cores you could create multiple different Marker Panel files: `MarkerPanel1.csv`, `MarkerPanel2.csv`, etc. with a single panel in each file. Then you can run a bash script that opens R and issues a command to run the `Rn.Colony()` command and changes the MarkerPanel that is used for each analysis. If you are interested you can contact contact the author for an example (see  [Getting Help from the Developer](#help) ) 
 
 # Future developments
-1. Add output files for other parentage programs. 
-2. The simulations currently take some time as the entire script is written in R. This makes the code easily adaptable by anyone that can read/write in the R programing language. Taking advantage of parallel processing should lead to substantial improvements in processing times. 
+1. Add output files for other parentage programs.
+2. Option for proportion of parents sampled. 
+3. The simulations currently take some time as the entire script is written in R. This makes the code easily adaptable by anyone that can read/write in the R programing language. Taking advantage of parallel processing should lead to substantial improvements in processing times. 
 
 
 # References
